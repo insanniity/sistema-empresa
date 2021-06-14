@@ -1,0 +1,21 @@
+spring:
+  jpa:
+    properties:
+      javax:
+        persistence:
+          schema-generation:
+            create-source: metadata
+            scripts:
+              action: create
+              create-target: create.sql
+    hibernate:
+      hbm2ddl:
+        delimiter: ';'
+      jdbc:
+        lob:
+          non_contextual_creation: true
+      ddl-auto: none
+  datasource:
+    url: jdbc:mariadb://localhost:3306/pesquisa
+    username: root
+
