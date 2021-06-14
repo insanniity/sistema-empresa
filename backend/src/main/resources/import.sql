@@ -1,0 +1,3 @@
+INSERT INTO tbl_company (id, cnpj, codigo, email, endereco, nome, telefone) VALUES (1, '05.445.870/0001-98', 'EMP001', 'empresa1@gmail.com', 'Rua Seilandia, N56, Centro', 'Empresa1', '31 99999-9999') ;
+INSERT INTO tbl_company (id, cnpj, codigo, email, endereco, nome, telefone) VALUES (2, '05.445.870/0001-98', 'EMP002', 'empresa2@gmail.com', 'Rua Seilandia, N56, Centro', 'Empresa2', '31 99999-9999') ;
+INSERT INTO tbl_company (id, cnpj, codigo, email, endereco, nome, telefone) VALUES (3, '05.445.870/0001-98', 'EMP003', 'empresa3@gmail.com', 'Rua Seilandia, N56, Centro', 'Empresa3', '31 99999-9999') ;
