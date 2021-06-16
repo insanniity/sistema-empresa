@@ -1,16 +1,17 @@
 package com.insannity.apiempresa.controllers;
 
 import com.insannity.apiempresa.dto.CollaboratorDTO;
-import com.insannity.apiempresa.dto.CompanyDTO;
 import com.insannity.apiempresa.services.CollaboratorService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
-import java.util.List;
 
 @RestController
 @RequestMapping(value = "/collaborators")
@@ -20,8 +21,15 @@ public class CollaboratorController {
     private CollaboratorService service;
 
     @GetMapping
-    public ResponseEntity<List<CollaboratorDTO>> findAll(){
-        List<CollaboratorDTO> list = service.findAll();
+    public ResponseEntity<Page<CollaboratorDTO>> findAll(
+            @RequestParam(value = "page", defaultValue = "0") Integer page,
+            @RequestParam(value = "linesPerPage", defaultValue = "12") Integer linesPerPage,
+            @RequestParam(value = "companyId", defaultValue = "") String companyId,
+            @RequestParam(value = "orderBy", defaultValue = "nome") String orderBy,
+            @RequestParam(value = "direction", defaultValue = "ASC") String direction){
+
+        PageRequest pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.valueOf(direction), orderBy);
+        Page<CollaboratorDTO> list = service.findAll(pageRequest, companyId);
         return ResponseEntity.ok().body(list);
     }
 

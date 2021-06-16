@@ -8,11 +8,10 @@ import com.insannity.apiempresa.repositories.CompanyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class CompanyService {
@@ -21,9 +20,9 @@ public class CompanyService {
     private CompanyRepository repository;
 
     @Transactional(readOnly = true)
-    public List<CompanyDTO> findAll(){
-        List<Company> list = repository.findAll();
-        return list.stream().map(x -> new CompanyDTO(x)).collect(Collectors.toList());
+    public Page<CompanyDTO> findAll(PageRequest pageRequest){
+        Page<Company> list = repository.findAll(pageRequest);
+        return list.map(x -> new CompanyDTO(x));
     }
 
     @Transactional

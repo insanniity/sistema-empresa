@@ -4,13 +4,15 @@ package com.insannity.apiempresa.controllers;
 import com.insannity.apiempresa.dto.CompanyDTO;
 import com.insannity.apiempresa.services.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
-import java.util.List;
 
 @RestController
 @RequestMapping(value = "/companies")
@@ -20,8 +22,13 @@ public class CompanyController {
     private CompanyService service;
 
     @GetMapping
-    public ResponseEntity<List<CompanyDTO>> findAll(){
-        List<CompanyDTO> list = service.findAll();
+    public ResponseEntity<Page<CompanyDTO>> findAll(
+            @RequestParam(value = "page", defaultValue = "0") Integer page,
+            @RequestParam(value = "linesPerPage", defaultValue = "12") Integer linesPerPage,
+            @RequestParam(value = "orderBy", defaultValue = "nome") String orderBy,
+            @RequestParam(value = "direction", defaultValue = "ASC") String direction){
+        PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
+        Page<CompanyDTO> list = service.findAll(pageRequest);
         return ResponseEntity.ok().body(list);
     }
 

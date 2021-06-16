@@ -10,6 +10,8 @@ import com.insannity.apiempresa.repositories.CompanyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,9 +28,9 @@ public class CollaboratorService {
     private CompanyRepository companyRepository;
 
     @Transactional(readOnly = true)
-    public List<CollaboratorDTO> findAll(){
-        List<Collaborator> list = repository.findAll();
-        return list.stream().map(x -> new CollaboratorDTO(x)).collect(Collectors.toList());
+    public Page<CollaboratorDTO> findAll(PageRequest pageRequest, String companyId){
+        Page<Collaborator> list = repository.findAll(pageRequest, companyId);
+        return list.map(x -> new CollaboratorDTO(x));
     }
 
     @Transactional
