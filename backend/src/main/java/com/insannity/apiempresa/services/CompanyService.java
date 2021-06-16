@@ -4,7 +4,6 @@ import com.insannity.apiempresa.dto.CompanyDTO;
 import com.insannity.apiempresa.entities.Company;
 import com.insannity.apiempresa.exceptions.DataBaseException;
 import com.insannity.apiempresa.exceptions.EntityNotFoundException;
-import com.insannity.apiempresa.mappers.CompanyMapper;
 import com.insannity.apiempresa.repositories.CompanyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -21,33 +20,31 @@ public class CompanyService {
     @Autowired
     private CompanyRepository repository;
 
-    private CompanyMapper mapper = CompanyMapper.INSTANCE;
-
     @Transactional(readOnly = true)
     public List<CompanyDTO> findAll(){
         List<Company> list = repository.findAll();
-        return list.stream().map(mapper::toDto).collect(Collectors.toList());
+        return list.stream().map(x -> new CompanyDTO(x)).collect(Collectors.toList());
     }
 
     @Transactional
     public CompanyDTO insert(CompanyDTO companyDTO) {
-       Company entity = mapper.toModel(companyDTO);
+       Company entity = new Company(companyDTO);
        Company entitySaved = repository.save(entity);
-       return mapper.toDto(entitySaved);
+       return new CompanyDTO(entitySaved);
 
     }
 
     @Transactional(readOnly = true)
     public CompanyDTO findById(Long id){
         Company entity = verifyIsExisting(id);
-        return mapper.toDto(entity);
+        return new CompanyDTO(entity);
     }
 
     public CompanyDTO update(Long id, CompanyDTO dto) {
             Company entity = verifyIsExisting(id);
-            entity = mapper.toModel(dto);
+            copyDtoToEntity(dto, entity);
             entity = repository.save(entity);
-            return mapper.toDto(entity);
+            return new CompanyDTO(entity);
     }
 
     public void delete(Long id) {
@@ -59,6 +56,14 @@ public class CompanyService {
             throw new DataBaseException("Violação de integridade.");
         }
 
+    }
+
+    private void copyDtoToEntity(CompanyDTO companyDTO, Company company){
+        company.setCodigo(companyDTO.getCodigo());
+        company.setCnpj(companyDTO.getCnpj());
+        company.setEmail(companyDTO.getEmail());
+        company.setEndereco(companyDTO.getEndereco());
+        company.setTelefone(companyDTO.getTelefone());
     }
 
     private Company verifyIsExisting(Long id){
