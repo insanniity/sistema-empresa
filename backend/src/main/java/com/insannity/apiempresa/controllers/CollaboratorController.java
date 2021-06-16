@@ -33,19 +33,19 @@ public class CollaboratorController {
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<CollaboratorDTO> findById(@PathVariable Long id){
+    public ResponseEntity<CollaboratorDTO> findById(@PathVariable String id){
         CollaboratorDTO dto = service.findById(id);
         return ResponseEntity.ok().body(dto);
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<CollaboratorDTO> update(@PathVariable Long id , @Valid @RequestBody CollaboratorDTO dto){
+    public ResponseEntity<CollaboratorDTO> update(@PathVariable String id , @Valid @RequestBody CollaboratorDTO dto){
         dto = service.update(id, dto);
         return ResponseEntity.ok().body(dto);
     }
 
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity <CollaboratorDTO> delete(@PathVariable Long id){
+    public ResponseEntity <CollaboratorDTO> delete(@PathVariable String id){
         service.delete(id);
         return ResponseEntity.noContent().build();
     }

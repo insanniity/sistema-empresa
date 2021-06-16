@@ -6,17 +6,16 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.br.CNPJ;
 
-import javax.validation.constraints.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class CompanyDTO {
 
-    private Long id;
-    private String codigo;
-
-
+    private String id;
     @NotBlank(message = "Campo Obrigatório")
     @CNPJ
     private String cnpj;
@@ -34,7 +33,6 @@ public class CompanyDTO {
 
     public CompanyDTO (Company company){
         this.id = company.getId();
-        this.codigo = company.getCodigo();
         this.cnpj = company.getCnpj();
         this.nome = company.getNome();
         this.email = company.getEmail();

@@ -4,6 +4,7 @@ import com.insannity.apiempresa.dto.CompanyDTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 
@@ -15,9 +16,11 @@ import javax.persistence.*;
 public class Company {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String codigo;
+    @GeneratedValue(generator = "company-generator")
+    @GenericGenerator(name = "company-generator",
+            parameters = @org.hibernate.annotations.Parameter(name = "prefix", value = "EMP-"),
+            strategy = "com.insannity.apiempresa.configs.MyGenerator")
+    private String id;
     private String cnpj;
     private String nome;
     private String email;
@@ -29,7 +32,6 @@ public class Company {
 
     public Company(CompanyDTO companyDTO){
         this.id = companyDTO.getId();
-        this.codigo = companyDTO.getCodigo();
         this.cnpj = companyDTO.getCnpj();
         this.nome = companyDTO.getNome();
         this.email = companyDTO.getEmail();

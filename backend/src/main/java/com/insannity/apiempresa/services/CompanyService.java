@@ -35,19 +35,19 @@ public class CompanyService {
     }
 
     @Transactional(readOnly = true)
-    public CompanyDTO findById(Long id){
+    public CompanyDTO findById(String id){
         Company entity = verifyIsExisting(id);
         return new CompanyDTO(entity);
     }
 
-    public CompanyDTO update(Long id, CompanyDTO dto) {
+    public CompanyDTO update(String id, CompanyDTO dto) {
             Company entity = verifyIsExisting(id);
             copyDtoToEntity(dto, entity);
             entity = repository.save(entity);
             return new CompanyDTO(entity);
     }
 
-    public void delete(Long id) {
+    public void delete(String id) {
         try {
             repository.deleteById(id);
         }catch(EmptyResultDataAccessException e) {
@@ -59,14 +59,13 @@ public class CompanyService {
     }
 
     private void copyDtoToEntity(CompanyDTO companyDTO, Company company){
-        company.setCodigo(companyDTO.getCodigo());
         company.setCnpj(companyDTO.getCnpj());
         company.setEmail(companyDTO.getEmail());
         company.setEndereco(companyDTO.getEndereco());
         company.setTelefone(companyDTO.getTelefone());
     }
 
-    private Company verifyIsExisting(Long id){
+    private Company verifyIsExisting(String id){
         return repository.findById(id).orElseThrow(() -> new EntityNotFoundException("Id "+id+" não encontrado!"));
     }
 }

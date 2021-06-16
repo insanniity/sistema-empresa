@@ -1,9 +1,6 @@
 package com.insannity.apiempresa.services;
 
 import com.insannity.apiempresa.dto.CollaboratorDTO;
-import com.insannity.apiempresa.dto.CollaboratorDTO;
-import com.insannity.apiempresa.dto.CompanyDTO;
-import com.insannity.apiempresa.entities.Collaborator;
 import com.insannity.apiempresa.entities.Collaborator;
 import com.insannity.apiempresa.entities.Company;
 import com.insannity.apiempresa.exceptions.DataBaseException;
@@ -43,19 +40,19 @@ public class CollaboratorService {
     }
 
     @Transactional(readOnly = true)
-    public CollaboratorDTO findById(Long id){
+    public CollaboratorDTO findById(String id){
         Collaborator entity = verifyIsExisting(id);
         return new CollaboratorDTO(entity);
     }
 
-    public CollaboratorDTO update(Long id, CollaboratorDTO dto) {
+    public CollaboratorDTO update(String id, CollaboratorDTO dto) {
         Collaborator entity = verifyIsExisting(id);
         copyDtoToEntity(dto, entity);
         entity = repository.save(entity);
         return new CollaboratorDTO(entity);
     }
 
-    public void delete(Long id) {
+    public void delete(String id) {
         try {
             repository.deleteById(id);
         }catch(EmptyResultDataAccessException e) {
@@ -68,7 +65,6 @@ public class CollaboratorService {
 
 
     private void copyDtoToEntity(CollaboratorDTO collaboratorDTO, Collaborator collaborator){
-        collaborator.setCodigo(collaboratorDTO.getCodigo());
         collaborator.setCpf(collaboratorDTO.getCpf());
         collaborator.setNome(collaboratorDTO.getNome());
         collaborator.setEmail(collaboratorDTO.getEmail());
@@ -77,7 +73,7 @@ public class CollaboratorService {
         collaborator.setCompany(companyRepository.getById(collaboratorDTO.getCompanyId()));
     }
 
-    private Collaborator verifyIsExisting(Long id){
+    private Collaborator verifyIsExisting(String id){
         return repository.findById(id).orElseThrow(() -> new EntityNotFoundException("Id "+id+" não encontrado!"));
     }
 

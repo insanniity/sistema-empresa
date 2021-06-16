@@ -33,20 +33,20 @@ public class CompanyController {
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity <CompanyDTO> findById(@PathVariable Long id){
+    public ResponseEntity <CompanyDTO> findById(@PathVariable String id){
         CompanyDTO dto = service.findById(id);
         return ResponseEntity.ok().body(dto);
     }
 
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity <CompanyDTO> update(@PathVariable Long id , @Valid @RequestBody CompanyDTO dto){
+    public ResponseEntity <CompanyDTO> update(@PathVariable String id , @Valid @RequestBody CompanyDTO dto){
         dto = service.update(id, dto);
         return ResponseEntity.ok().body(dto);
     }
 
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity <CompanyDTO> delete(@PathVariable Long id){
+    public ResponseEntity <CompanyDTO> delete(@PathVariable String id){
         service.delete(id);
         return ResponseEntity.noContent().build();
     }

@@ -7,6 +7,7 @@ import com.insannity.apiempresa.services.CompanyService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.GenericGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
@@ -19,9 +20,11 @@ import javax.persistence.*;
 public class Collaborator {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String codigo;
+    @GeneratedValue(generator = "company-generator")
+    @GenericGenerator(name = "company-generator",
+            parameters = @org.hibernate.annotations.Parameter(name = "prefix", value = "CLB-"),
+            strategy = "com.insannity.apiempresa.configs.MyGenerator")
+    private String id;
     private String cpf;
     private String nome;
     private String email;
@@ -34,7 +37,6 @@ public class Collaborator {
 
     public Collaborator(CollaboratorDTO collaboratorDTO, Company company) {
         this.id = collaboratorDTO.getId();
-        this.codigo = collaboratorDTO.getCodigo();
         this.cpf = collaboratorDTO.getCpf();
         this.nome = collaboratorDTO.getNome();
         this.email = collaboratorDTO.getEmail();

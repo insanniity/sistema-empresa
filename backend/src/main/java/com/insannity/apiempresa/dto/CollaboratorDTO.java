@@ -15,8 +15,7 @@ import javax.validation.constraints.Size;
 @NoArgsConstructor
 public class CollaboratorDTO {
 
-    private Long id;
-    private String codigo;
+    private String id;
     @NotBlank(message = "Campo Obrigatório")
     @CPF
     private String cpf;
@@ -31,11 +30,10 @@ public class CollaboratorDTO {
     @NotBlank(message = "Campo Obrigatório")
     private String endereco;
     @NotBlank(message = "Campo Obrigatório")
-    private Long companyId;
+    private String companyId;
 
     public CollaboratorDTO(Collaborator collaborator) {
         this.id = collaborator.getId();
-        this.codigo = collaborator.getCodigo();
         this.cpf = collaborator.getCpf();
         this.nome = collaborator.getNome();
         this.email = collaborator.getEmail();
