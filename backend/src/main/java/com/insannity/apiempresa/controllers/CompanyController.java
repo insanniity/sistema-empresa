@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 
@@ -25,7 +26,7 @@ public class CompanyController {
     }
 
     @PostMapping
-    public ResponseEntity<CompanyDTO> newCompany(@RequestBody CompanyDTO companyDTO){
+    public ResponseEntity<CompanyDTO> newCompany(@Valid @RequestBody CompanyDTO companyDTO){
         companyDTO = service.insert(companyDTO);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(companyDTO.getId()).toUri();
         return ResponseEntity.created(uri).body(companyDTO);
@@ -39,7 +40,7 @@ public class CompanyController {
 
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity <CompanyDTO> update(@PathVariable Long id , @RequestBody CompanyDTO dto){
+    public ResponseEntity <CompanyDTO> update(@PathVariable Long id , @Valid @RequestBody CompanyDTO dto){
         dto = service.update(id, dto);
         return ResponseEntity.ok().body(dto);
     }

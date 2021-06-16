@@ -4,6 +4,11 @@ import com.insannity.apiempresa.entities.Collaborator;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.br.CPF;
+
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 @Data
 @AllArgsConstructor
@@ -12,11 +17,20 @@ public class CollaboratorDTO {
 
     private Long id;
     private String codigo;
+    @NotBlank(message = "Campo Obrigatório")
+    @CPF
     private String cpf;
+    @NotBlank(message = "Campo Obrigatório")
     private String nome;
+    @NotBlank(message = "Campo Obrigatório")
+    @Email(message = "O email não é válido")
     private String email;
+    @NotBlank(message = "Campo Obrigatório")
+    @Size(min = 10, max = 15)
     private String telefone;
+    @NotBlank(message = "Campo Obrigatório")
     private String endereco;
+    @NotBlank(message = "Campo Obrigatório")
     private Long companyId;
 
     public CollaboratorDTO(Collaborator collaborator) {

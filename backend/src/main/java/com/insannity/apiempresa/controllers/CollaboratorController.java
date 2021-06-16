@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 
@@ -25,7 +26,7 @@ public class CollaboratorController {
     }
 
     @PostMapping
-    public ResponseEntity<CollaboratorDTO> newCollaborator(@RequestBody CollaboratorDTO collaboratorDTO){
+    public ResponseEntity<CollaboratorDTO> newCollaborator(@Valid @RequestBody CollaboratorDTO collaboratorDTO){
         collaboratorDTO = service.insert(collaboratorDTO);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(collaboratorDTO.getId()).toUri();
         return ResponseEntity.created(uri).body(collaboratorDTO);
@@ -38,7 +39,7 @@ public class CollaboratorController {
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<CollaboratorDTO> update(@PathVariable Long id , @RequestBody CollaboratorDTO dto){
+    public ResponseEntity<CollaboratorDTO> update(@PathVariable Long id , @Valid @RequestBody CollaboratorDTO dto){
         dto = service.update(id, dto);
         return ResponseEntity.ok().body(dto);
     }

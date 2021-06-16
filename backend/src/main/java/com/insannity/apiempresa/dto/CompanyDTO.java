@@ -4,6 +4,9 @@ import com.insannity.apiempresa.entities.Company;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.br.CNPJ;
+
+import javax.validation.constraints.*;
 
 @Data
 @AllArgsConstructor
@@ -12,10 +15,20 @@ public class CompanyDTO {
 
     private Long id;
     private String codigo;
+
+
+    @NotBlank(message = "Campo Obrigatório")
+    @CNPJ
     private String cnpj;
+    @NotBlank(message = "Campo Obrigatório")
     private String nome;
+    @NotBlank(message = "Campo Obrigatório")
+    @Email(message = "O email não é válido")
     private String email;
+    @NotBlank(message = "Campo Obrigatório")
+    @Size(min = 10, max = 15)
     private String telefone;
+    @NotBlank(message = "Campo Obrigatório")
     private String endereco;
 //    private List<CollaboratorDTO> collaborators = new ArrayList<>();
 
