@@ -1,12 +1,9 @@
 package com.insannity.apiempresa.dto;
 
-import com.insannity.apiempresa.entities.Company;
+import com.insannity.apiempresa.entities.Collaborator;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 
 @Data
 @AllArgsConstructor
@@ -20,6 +17,16 @@ public class CollaboratorDTO {
     private String email;
     private String telefone;
     private String endereco;
-    private CompanyDTO company;
+    private Long companyId;
 
+    public CollaboratorDTO(Collaborator collaborator) {
+        this.id = collaborator.getId();
+        this.codigo = collaborator.getCodigo();
+        this.cpf = collaborator.getCpf();
+        this.nome = collaborator.getNome();
+        this.email = collaborator.getEmail();
+        this.telefone = collaborator.getTelefone();
+        this.endereco = collaborator.getEndereco();
+        this.companyId = collaborator.getCompany().getId();
+    }
 }
