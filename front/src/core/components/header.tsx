@@ -2,7 +2,7 @@ import {NavLink, Link } from 'react-router-dom';
 
 const Header = () => {
     return(
-        <nav className="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+        <nav className="navbar navbar-expand-md navbar-dark bg-dark mb-4">
             <div className="container-fluid">
                 <Link to="/" className="navbar-brand">Sistema</Link>
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse"
