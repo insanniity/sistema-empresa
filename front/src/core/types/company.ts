@@ -1,6 +1,7 @@
 export type CompanyResponse ={
     content: Company[];
     totalPages:number;
+    totalElements: number;
 }
 
 export type Company ={
