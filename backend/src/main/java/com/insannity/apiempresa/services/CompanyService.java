@@ -58,6 +58,7 @@ public class CompanyService {
     }
 
     private void copyDtoToEntity(CompanyDTO companyDTO, Company company){
+        company.setNome(companyDTO.getNome());
         company.setCnpj(companyDTO.getCnpj());
         company.setEmail(companyDTO.getEmail());
         company.setEndereco(companyDTO.getEndereco());
