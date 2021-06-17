@@ -1,0 +1,10 @@
+create table tbl_collaborator (id varchar(255) not null, cpf varchar(255), email varchar(255), endereco varchar(255), nome varchar(255), telefone varchar(255), company_id varchar(255), primary key (id))
+create table tbl_company (id varchar(255) not null, cnpj varchar(255), email varchar(255), endereco varchar(255), nome varchar(255), telefone varchar(255), primary key (id))
+alter table if exists tbl_collaborator add constraint FKj6lumoqudqg5h3efdh1eyk8d5 foreign key (company_id) references tbl_company
+INSERT INTO tbl_company (id, cnpj, email, endereco, nome, telefone) VALUES ('EMP-0001', '05.445.870/0001-98', 'empresa1@gmail.com', 'Rua Seilandia, N56, Centro', 'Empresa1', '31 99999-9999') 
+INSERT INTO tbl_company (id, cnpj, email, endereco, nome, telefone) VALUES ('EMP-0002', '05.445.870/0001-98', 'empresa2@gmail.com', 'Rua Seilandia, N56, Centro', 'Empresa2', '31 99999-9999') 
+INSERT INTO tbl_company (id, cnpj, email, endereco, nome, telefone) VALUES ('EMP-0003', '05.445.870/0001-98', 'empresa3@gmail.com', 'Rua Seilandia, N56, Centro', 'Empresa3', '31 99999-9999') 
+INSERT INTO tbl_collaborator (id, cpf, email, endereco, nome, telefone, company_id) VALUES ('CLB-0001', '166.977.670-06', 'jao@gmail.com', 'Rua Seilandia, N56, Centro', 'Jao', '31 99999-9999', 'EMP-0001')
+INSERT INTO tbl_collaborator (id, cpf, email, endereco, nome, telefone, company_id) VALUES ('CLB-0002', '166.977.670-06', 'bob@gmail.com', 'Rua Seilandia, N56, Centro', 'Bob', '31 99999-9999', 'EMP-0001')
+INSERT INTO tbl_collaborator (id, cpf, email, endereco, nome, telefone, company_id) VALUES ('CLB-0003', '166.977.670-06', 'maria@gmail.com', 'Rua Seilandia, N56, Centro', 'Maria', '31 99999-9999', 'EMP-0002')
+INSERT INTO tbl_collaborator (id, cpf, email, endereco, nome, telefone, company_id) VALUES ('CLB-0004', '166.977.670-06', 'jose@gmail.com', 'Rua Seilandia, N56, Centro', 'Jose', '31 99999-9999', 'EMP-0002')

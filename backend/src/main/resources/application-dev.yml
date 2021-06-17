@@ -1,20 +1,22 @@
 spring:
-  jpa:
-    properties:
-      javax:
-        persistence:
-          schema-generation:
-            create-source: metadata
-            scripts:
-              action: create
-              create-target: create.sql
-    hibernate:
-      hbm2ddl:
-        delimiter: ';'
-      jdbc:
-        lob:
-          non_contextual_creation: true
-      ddl-auto: none
+#  jpa:
+#    properties:
+#      javax:
+#        persistence:
+#          schema-generation:
+#            create-source: metadata
+#            scripts:
+#              action: create
+#              create-target: create.sql
+#    hibernate:
+#      hbm2ddl:
+#        delimiter: ';'
+#      jdbc:
+#        lob:
+#          non_contextual_creation: true
+#      ddl-auto: none
   datasource:
-    url: ${DATABASE_URL}
+    url: jdbc:postgresql://localhost:5432/empresa
+    username: postgres
+    password: root
 
