@@ -55,7 +55,6 @@ const EditarCompany = () => {
     }
 
     const handleCancel = () =>{
-
         history.push('/companies');
     }
 

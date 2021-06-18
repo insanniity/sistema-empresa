@@ -2,6 +2,7 @@ import {BrowserRouter, Switch, Route, Redirect} from "react-router-dom";
 import Companies from "./pages/Companies";
 import Header from "./core/components/header";
 import EditarCompany from "./pages/Companies/edit";
+import Collaborators from "./pages/collaborators";
 
 const Routes = () =>{
     return(
@@ -20,6 +21,9 @@ const Routes = () =>{
                         <h1>Companies Adicionar</h1>
                     </Route>
                     <Route path="/collaborators" exact>
+                        <Collaborators />
+                    </Route>
+                    <Route path="/collaborators/:collaboratorId" exact>
                         <h1>Colaboradores ver</h1>
                     </Route>
                     <Route path="/collaborators/adicionar" >
