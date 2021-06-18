@@ -16,10 +16,8 @@ const TableRow = ({company}:Props) => {
             <td>{company.endereco}</td>
             <td>
                 <Link to={`/companies/${company.id}`}><button type="button" className="btn btn-primary"><i className="bi-pencil"></i></button></Link>
-                <span> </span>
-                <button type="button" className="btn btn-warning"><i className="bi-people"></i></button>
-                <span> </span>
-                <button type="button" className="btn btn-danger"><i className="bi-trash"></i></button>
+                <button type="button" className="btn btn-warning ms-1"><i className="bi-people"></i></button>
+                <button type="button" className="btn btn-danger ms-1"><i className="bi-trash"></i></button>
             </td>
         </tr>
     )

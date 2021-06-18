@@ -1,6 +1,7 @@
 import {BrowserRouter, Switch, Route, Redirect} from "react-router-dom";
 import Companies from "./pages/Companies";
 import Header from "./core/components/header";
+import EditarCompany from "./pages/Companies/edit";
 
 const Routes = () =>{
     return(
@@ -11,6 +12,9 @@ const Routes = () =>{
                     <Redirect from="/" to="/companies" exact/>
                     <Route path="/companies" exact>
                         <Companies />
+                    </Route>
+                    <Route path="/companies/:companyId" exact>
+                        <EditarCompany />
                     </Route>
                     <Route path="/companies/adicionar" >
                         <h1>Companies Adicionar</h1>

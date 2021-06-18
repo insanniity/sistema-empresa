@@ -14,6 +14,7 @@ const Companies = () => {
         const params ={
             page:activePage-1,
             linesPerPage: 10,
+            orderBy: "id",
         }
         setIsLoading(true);
         makeRequest({url:'/companies', params})
@@ -28,21 +29,22 @@ const Companies = () => {
     return(
         <div className="p-5 rounded bg-white">
             <table className="table table-striped">
+                {isLoading && ("Loading")}
                 <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Nome</th>
-                        <th scope="col">CNPJ</th>
-                        <th scope="col">Telefone</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">Endereço</th>
-                        <th scope="col">Ações</th>
-                    </tr>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Nome</th>
+                    <th scope="col">CNPJ</th>
+                    <th scope="col">Telefone</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Endereço</th>
+                    <th scope="col">Ações</th>
+                </tr>
                 </thead>
                 <tbody>
-                    {companiesResponse?.content.map(company =>
-                        <TableRow company={company}/>
-                    )}
+                {companiesResponse?.content.map(company =>
+                    <TableRow company={company} key={company.id} />
+                )}
                 </tbody>
             </table>
             {companiesResponse &&

@@ -5,7 +5,7 @@ export type CompanyResponse ={
 }
 
 export type Company ={
-    id: string;
+    id?: string;
     nome: string;
     cnpj: string;
     telefone: string;
