@@ -5,6 +5,8 @@ import {useForm} from "react-hook-form";
 import {toast} from 'react-toastify';
 import {Company} from "../../core/types/company";
 import {formatCnpj, formatTel} from "../../core/utils/formatValues";
+import { cnpj } from 'cpf-cnpj-validator';
+
 
 type ParamsType = {
     companyId: string;
@@ -33,17 +35,23 @@ const EditarCompany = () => {
         reset();
     }, [companyId, isEditing, setValue, reset]);
 
+
     const onSubmit = (data:Company) => {
-        data.cnpj = formatCnpj(data.cnpj);
-        data.telefone = formatTel(data.telefone);
-        makeRequest({url: isEditing ? `/companies/${companyId}` : '/companies', method: isEditing ? 'PUT' : 'POST', data})
-            .then(() => {
-                toast.success('Empresa salvo com sucesso!');
-                history.push('/companies');
-            })
-            .catch(() =>{
-                toast.error('Erro ao salvar empresa!');
-            });
+        if(cnpj.isValid(data.cnpj)){
+            data.cnpj = formatCnpj(data.cnpj);
+            data.telefone = formatTel(data.telefone);
+            makeRequest({url: isEditing ? `/companies/${companyId}` : '/companies', method: isEditing ? 'PUT' : 'POST', data})
+                .then(() => {
+                    toast.success('Empresa salvo com sucesso!');
+                    history.push('/companies');
+                })
+                .catch(() =>{
+                    toast.error('Erro ao salvar empresa!');
+                });
+        }else{
+            toast.error('CNPJ inválido!');
+        }
+
     }
 
     const handleCancel = () =>{
