@@ -27,3 +27,9 @@ security:
 jwt:
   secret: MY-JWT-SCRET
   duration: 86400
+
+host:
+  full:
+    dns:
+      auth:
+        link: /api

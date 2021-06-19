@@ -3,6 +3,7 @@ package com.insannity.apiempresa.configs;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -48,6 +49,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
 	@Override
 	public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
+		security.allowFormAuthenticationForClients();
 		security.tokenKeyAccess("permitAll()").checkTokenAccess("isAuthenticated()");
 	}
 
@@ -56,9 +58,10 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 		clients.inMemory()
 			.withClient(clienteId)
 			.secret(passwordEncoder.encode(clientSecret))
-			.scopes("read", "write")
+			.scopes("read", "write", "trust")
 			.authorizedGrantTypes("password")
-			.accessTokenValiditySeconds(jwtDuration);
+			.accessTokenValiditySeconds(jwtDuration)
+			.autoApprove(true);
 	}
 
 	@Override
@@ -71,8 +74,10 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 			.accessTokenConverter(acessTokenConverter)
 			.tokenEnhancer(chain);
 	}
-		
-	
-	
+
+	public interface AuthenticationManagerResolver<C> {
+		AuthenticationManager resolve(C context);
+	}
+
 	
 }

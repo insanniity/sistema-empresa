@@ -16,3 +16,9 @@ security:
 jwt:
   secret: ${JWT_SECRET}
   duration: ${JWT_DURATION}
+
+host:
+  full:
+    dns:
+      auth:
+        link: /api
