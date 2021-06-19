@@ -27,7 +27,7 @@ const EditarCollaborator = () => {
     const [collaborator, setCollaborator] = useState<Collaborator>();
     const [companies, setCompanies] = useState<Company[]>();
     const history = useHistory();
-    const { register, handleSubmit, formState: { errors }, setValue, reset, control} = useForm<FormState>();
+    const { register, handleSubmit, formState: { errors }, setValue, reset} = useForm<FormState>();
     const isEditing = collaboratorId !== 'adicionar';
     const [isLoading, setIsLoading] = useState(false);
 
