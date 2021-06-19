@@ -3,8 +3,10 @@ package com.insannity.apiempresa.services;
 import com.insannity.apiempresa.dto.UserDTO;
 import com.insannity.apiempresa.dto.UserInsertDTO;
 import com.insannity.apiempresa.dto.UserUpdateDTO;
+import com.insannity.apiempresa.entities.Role;
 import com.insannity.apiempresa.entities.User;
 import com.insannity.apiempresa.exceptions.DataBaseException;
+import com.insannity.apiempresa.repositories.RoleRepository;
 import com.insannity.apiempresa.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -31,8 +33,8 @@ public class UserService implements UserDetailsService{
 	@Autowired
 	private UserRepository repository;
 	
-//	@Autowired
-//	private RoleRepository roleRepository;
+	@Autowired
+	private RoleRepository roleRepository;
 	
 	@Transactional(readOnly = true)
 	public Page<UserDTO> findAllPaged(PageRequest pageRequest){
@@ -73,11 +75,9 @@ public class UserService implements UserDetailsService{
 	private void copyDtoToEntity(UserDTO dto, User entity) {
 		entity.setName(dto.getName());		
 		entity.setEmail(dto.getEmail());
-//		entity.getRoles().clear();
-//		for (RoleDTO roleDto : dto.getRoles()) {
-//			Role role = roleRepository.getOne(roleDto.getId());
-//			entity.getRoles().add(role);
-//		}
+		entity.getRoles().clear();
+		Role role = roleRepository.getById(1L);
+		entity.getRoles().add(role);
 		
 	}
 

@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 
 @AllArgsConstructor
@@ -24,20 +26,20 @@ public class UserDTO implements Serializable{
 	@Email(message= "Favor digitar um email válido")
 	private String email;
 	
-	//Set<RoleDTO> roles = new HashSet<>();
+	Set<RoleDTO> roles = new HashSet<>();
 	
 	public UserDTO(User entity) {
 		id = entity.getId();
 		name = entity.getName();		
 		email = entity.getEmail();
-		//entity.getRoles().forEach(role -> this.roles.add(new RoleDTO(role)));
+		entity.getRoles().forEach(role -> this.roles.add(new RoleDTO(role)));
 	}
 
 
 
-	//public Set<RoleDTO> getRoles() {
-	//	return roles;
-	//}
+	public Set<RoleDTO> getRoles() {
+		return roles;
+	}
 	
 	
 	
