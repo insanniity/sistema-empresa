@@ -19,4 +19,11 @@ spring:
     url: jdbc:postgresql://localhost:5432/empresa
     username: postgres
     password: root
-
+security:
+  oauth2:
+    client:
+      client-id: sistema-empresa
+      client-secret: sistema-empresa123
+jwt:
+  secret: MY-JWT-SCRET
+  duration: 86400

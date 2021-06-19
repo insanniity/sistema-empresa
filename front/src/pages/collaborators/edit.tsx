@@ -130,7 +130,7 @@ const EditarCollaborator = () => {
                     <div className="col-lg-10">
                         <select {...register("companyId")} className={`form-control ${errors.companyId ? 'is-invalid' : ''}`} defaultValue={collaborator?.companyId} >
                             {!isEditing && <option selected={true}>Selecione a empresa</option>}
-                            {companies?.map(x => (<option value={x.id} key={x.id} selected={x.id === collaborator?.companyId ? true : false} >{x.nome}</option>))}
+                            {companies?.map(x => (<option value={x.id} key={x.id} selected={x.id === collaborator?.companyId} >{x.nome}</option>))}
                         </select>
                         {errors.companyId && <div className="invalid-feedback">This field is required or invalid</div>}
                     </div>
