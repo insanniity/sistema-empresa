@@ -53,7 +53,7 @@ public class SwaggerConfig {
                 "Api para sistema de gerenciamento de empresas e colaboradores",
                 "API V2",
                 "Terms of service",
-                new Contact("Insannity", "www.insannity.com.br", "contato@insannity.com"),
+                new Contact("Insannity", "https://www.insannity.com.br", "contato@insannity.com"),
                 "License of API", "API license URL", Collections.emptyList());
     }
 
