@@ -3,6 +3,7 @@ import Companies from "./pages/Companies";
 import Header from "./core/components/header";
 import EditarCompany from "./pages/Companies/edit";
 import Collaborators from "./pages/collaborators";
+import EditarCollaborator from "./pages/collaborators/edit";
 
 const Routes = () =>{
     return(
@@ -17,17 +18,11 @@ const Routes = () =>{
                     <Route path="/companies/:companyId" exact>
                         <EditarCompany />
                     </Route>
-                    <Route path="/companies/adicionar" >
-                        <h1>Companies Adicionar</h1>
-                    </Route>
                     <Route path="/collaborators" exact>
                         <Collaborators />
                     </Route>
                     <Route path="/collaborators/:collaboratorId" exact>
-                        <h1>Colaboradores ver</h1>
-                    </Route>
-                    <Route path="/collaborators/adicionar" >
-                        <h1>Colaboradores Adicionar</h1>
+                        <EditarCollaborator />
                     </Route>
                 </Switch>
             </main>

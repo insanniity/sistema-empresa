@@ -14,3 +14,11 @@ export type Collaborator ={
     companyId: string;
 }
 
+export type CollaboratorForm={
+    nome: string;
+    cpf: string;
+    telefone: string;
+    email: string;
+    endereco: string;
+    company: {id:string, nome: string};
+}

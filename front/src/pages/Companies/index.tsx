@@ -3,12 +3,12 @@ import TableRow from "./components/table-row";
 import {CompanyResponse} from "../../core/types/company";
 import {makeRequest} from "../../core/utils/request";
 import Pagination from "react-js-pagination";
+import {toast} from "react-toastify";
 
 const Companies = () => {
     const [companiesResponse, setCompaniesResponse] = useState<CompanyResponse>();
     const [isLoading, setIsLoading] = useState(false);
     const [activePage, setActivePage] = useState(1);
-
 
     const getCompanies = useCallback(() => {
         const params ={
@@ -25,6 +25,25 @@ const Companies = () => {
     useEffect(()=>{
         getCompanies();
     }, [getCompanies] );
+
+
+    const onRemove = (companyId:any) =>{
+        if(companyId !== undefined){
+            const confirm = window.confirm('Deseja realmente apagar a empresa?');
+            if(confirm){
+                makeRequest({ url:`/companies/${companyId}`, method:'DELETE' })
+                    .then(() => {
+                        toast.success('Empresa apagada com sucesso!');
+                        getCompanies();
+                    })
+                    .catch(() =>{
+                        toast.error('Erro ao apagar empresa! Tente apagar todos os colabores dela antes.');
+                    });
+            }
+        }else {
+            toast.error('Ocorreu um erro, tente novamente mais tarde!');
+        }
+    }
 
     return(
         <div className="p-5 rounded bg-white">
@@ -43,7 +62,7 @@ const Companies = () => {
                 </thead>
                 <tbody>
                 {companiesResponse?.content.map(company =>
-                    <TableRow company={company} key={company.id} />
+                    <TableRow company={company} key={company.id} onRemove={onRemove}/>
                 )}
                 </tbody>
             </table>

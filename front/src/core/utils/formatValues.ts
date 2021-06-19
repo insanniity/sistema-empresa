@@ -7,6 +7,16 @@ export const formatCnpj = (data:string) => {
     return data
 }
 
+export const formatCpf = (data:string) => {
+    data=data.replace(/\D/g,"")                    //Remove tudo o que não é dígito
+    data=data.replace(/(\d{3})(\d)/,"$1.$2")       //Coloca um ponto entre o terceiro e o quarto dígitos
+    data=data.replace(/(\d{3})(\d)/,"$1.$2")       //Coloca um ponto entre o terceiro e o quarto dígitos
+                                                                        //de novo (para o segundo bloco de números)
+    data=data.replace(/(\d{3})(\d{1,2})$/,"$1-$2") //Coloca um hífen entre o terceiro e o quarto dígitos
+
+    return data;
+}
+
 export const formatTel = (data:string) =>{
     data=data.replace(/\D/g,"")
     switch(data.length){

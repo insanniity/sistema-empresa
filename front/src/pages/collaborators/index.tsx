@@ -4,6 +4,7 @@ import {makeRequest} from "../../core/utils/request";
 import Pagination from "react-js-pagination";
 import {CollaboratorResponse} from "../../core/types/collaborator";
 import {useLocation} from "react-router-dom";
+import {toast} from "react-toastify";
 
 function useQuery() {
     return new URLSearchParams(useLocation().search);
@@ -35,6 +36,25 @@ const Collaborators = () => {
         getCollaborators();
     }, [getCollaborators, companyId] );
 
+    const onRemove = (collaboratorId:any) =>{
+        if(collaboratorId !== undefined){
+            const confirm = window.confirm('Deseja realmente apagar o colaborador?');
+            if(confirm){
+                makeRequest({ url:`/collaborators/${collaboratorId}`, method:'DELETE' })
+                    .then(() => {
+                        toast.success('Colaborador apagada com sucesso!');
+                        getCollaborators();
+                    })
+                    .catch(() =>{
+                        toast.error('Erro ao apagar Colaborador!');
+                    });
+            }
+        }else {
+            toast.error('Ocorreu um erro, tente novamente mais tarde!');
+        }
+    }
+
+
     return(
         <div className="p-5 rounded bg-white">
             <table className="table table-striped">
@@ -53,7 +73,7 @@ const Collaborators = () => {
                 </thead>
                 <tbody>
                 {collaboratorsResponse?.content.map(collaborator =>
-                    <TableRow collaborator={collaborator} key={collaborator.id} />
+                    <TableRow collaborator={collaborator} key={collaborator.id} onRemove={onRemove}/>
                 )}
                 </tbody>
             </table>
