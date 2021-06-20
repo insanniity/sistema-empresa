@@ -3,7 +3,7 @@ import jwtDecode from 'jwt-decode';
 export const CLIENT_ID = process.env.REACT_APP_CLIENT_ID ?? 'sistema-empresa';
 export const CLIENT_SECRET = process.env.REACT_APP_CLIENT_SECRET ?? 'sistema-empresa123';
 
-type LoginRepsonse={
+export type LoginRepsonse={
     access_token: string,
     token_type: string,
     expires_in: number,
@@ -14,9 +14,10 @@ type LoginRepsonse={
 
 export type Role = 'ROLE_ADMIN';
 
-type AccessToken = {
+export type AccessToken = {
     exp:number,
     user_name:string,
+    userId : number,
     authorities: Role[], 
 }
 
