@@ -1,7 +1,7 @@
 import {useCallback, useEffect, useState} from "react";
 import TableRow from "./components/table-row";
 import {CompanyResponse} from "../../core/types/company";
-import {makeRequest} from "../../core/utils/request";
+import {makePrivateRequest} from "../../core/utils/request";
 import Pagination from "react-js-pagination";
 import {toast} from "react-toastify";
 
@@ -17,7 +17,7 @@ const Companies = () => {
             orderBy: "id",
         }
         setIsLoading(true);
-        makeRequest({url:'/companies', params})
+        makePrivateRequest({url:'/companies', params})
             .then(response => setCompaniesResponse(response.data))
             .finally(()=> {setIsLoading(false)});
     }, [activePage]);
@@ -31,7 +31,7 @@ const Companies = () => {
         if(companyId !== undefined){
             const confirm = window.confirm('Deseja realmente apagar a empresa?');
             if(confirm){
-                makeRequest({ url:`/companies/${companyId}`, method:'DELETE' })
+                makePrivateRequest({ url:`/companies/${companyId}`, method:'DELETE' })
                     .then(() => {
                         toast.success('Empresa apagada com sucesso!');
                         getCompanies();

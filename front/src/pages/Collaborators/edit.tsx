@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 import {useHistory, useParams} from "react-router-dom";
-import {makeRequest} from "../../core/utils/request";
+import {makePrivateRequest, makeRequest} from "../../core/utils/request";
 import {useForm} from "react-hook-form";
 import {toast} from 'react-toastify';
 import {formatCpf, formatTel} from "../../core/utils/formatValues";
@@ -34,7 +34,7 @@ const EditarCollaborator = () => {
     useEffect(() => {
         if(isEditing) {
             setIsLoading(true);
-            makeRequest({url: `/collaborators/${collaboratorId}`})
+            makePrivateRequest({url: `/collaborators/${collaboratorId}`})
                 .then(response => {
                     setCollaborator(response.data);
                     setValue('nome', response.data.nome);
@@ -53,7 +53,7 @@ const EditarCollaborator = () => {
         const params ={
             linesPerPage: 50,
         }
-        makeRequest({url: `/companies`, params})
+        makePrivateRequest({url: `/companies`, params})
             .then(response => setCompanies(response.data.content))
             .finally(() => setIsLoading(false));
     }, []);
@@ -65,10 +65,10 @@ const EditarCollaborator = () => {
         if(cpf.isValid(data.cpf)){
             data.cpf = formatCpf(data.cpf);
             data.telefone = formatTel(data.telefone);
-            makeRequest({url: isEditing ? `/collaborators/${collaboratorId}` : '/collaborators', method: isEditing ? 'PUT' : 'POST', data})
+            makeRequest({url: isEditing ? `/collaborators/${collaboratorId}` : '/Collaborators', method: isEditing ? 'PUT' : 'POST', data})
                 .then(() => {
                     toast.success('Colaborador salvo com sucesso!');
-                    history.push('/collaborators');
+                    history.push('/Collaborators');
                 })
                 .catch(() =>{
                     toast.error('Erro ao salvar Colaborador!');
@@ -79,7 +79,7 @@ const EditarCollaborator = () => {
     }
 
     const handleCancel = () =>{
-        history.push('/collaborators');
+        history.push('/Collaborators');
     }
 
     return(

@@ -1,6 +1,6 @@
 import {useCallback, useEffect, useState} from "react";
 import TableRow from "./components/table-row";
-import {makeRequest} from "../../core/utils/request";
+import {makePrivateRequest, makeRequest} from "../../core/utils/request";
 import Pagination from "react-js-pagination";
 import {CollaboratorResponse} from "../../core/types/collaborator";
 import {useLocation} from "react-router-dom";
@@ -27,7 +27,7 @@ const Collaborators = () => {
             companyId,
         }
         setIsLoading(true);
-        makeRequest({url:'/collaborators', params})
+        makePrivateRequest({url:'/collaborators', params})
             .then(response => setCollaboratorsResponse(response.data))
             .finally(()=> {setIsLoading(false)});
     }, [activePage, companyId]);
