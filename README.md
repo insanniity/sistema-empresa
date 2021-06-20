@@ -25,8 +25,8 @@ Sistema gerenciador de empresas e colaboradores.
 
 ### Features
     - [x] Cadastro e gerenciamento de usuário
-    - [x] Cadastro e gerenciamento de empresas
-    - [x] Cadastro e gerenciamento de colaboradores
+    - [x] Cadastro e gerenciamento de 
+    - [x] Cadastro e gerenciamento de usuário
 
       
 
