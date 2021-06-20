@@ -1,4 +1,4 @@
-import {BrowserRouter, Switch, Route, Redirect} from "react-router-dom";
+import {BrowserRouter, Redirect, Route, Switch} from "react-router-dom";
 import Companies from "./pages/Companies";
 import Header from "./core/components/header";
 import EditarCompany from "./pages/Companies/edit";

@@ -6,6 +6,7 @@ import {UserResponse} from "../../core/types/user";
 import TableRow from "./components/table-row";
 import {getSessionData} from "../../core/auth/auth";
 import {useHistory} from "react-router-dom";
+import Breadcrumb from "../../core/components/breadcrumb";
 
 
 const Users = () => {
@@ -62,40 +63,43 @@ const Users = () => {
     }
 
     return(
-        <div className="p-5 rounded bg-white">
-            <table className="table table-striped">
-                {isLoading && ("Loading")}
-                <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Nome</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Ações</th>
-                </tr>
-                </thead>
-                <tbody>
-                {usersResponse?.content.map(user =>
-                    <TableRow user={user} key={user.id} onRemove={onRemove}/>
-                )}
-                </tbody>
-            </table>
-            {usersResponse &&
-            <nav aria-label="...">
-                <Pagination
-                    activePage={activePage}
-                    itemsCountPerPage={10}
-                    totalItemsCount={usersResponse.totalElements}
-                    pageRangeDisplayed={5}
-                    onChange={page => setActivePage(page)}
-                    itemClass="page-item"
-                    linkClass="page-link mx-1"
-                    activeClass="active"
-                    innerClass="pagination justify-content-center"
-                    hideDisabled={false}
-                />
-            </nav>
-            }
-        </div>
+        <>
+            <Breadcrumb controller="User" action="List" />
+            <div className="p-5 rounded bg-white">
+                <table className="table table-striped">
+                    {isLoading && ("Loading")}
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Nome</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Ações</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {usersResponse?.content.map(user =>
+                        <TableRow user={user} key={user.id} onRemove={onRemove}/>
+                    )}
+                    </tbody>
+                </table>
+                {usersResponse &&
+                <nav aria-label="...">
+                    <Pagination
+                        activePage={activePage}
+                        itemsCountPerPage={10}
+                        totalItemsCount={usersResponse.totalElements}
+                        pageRangeDisplayed={5}
+                        onChange={page => setActivePage(page)}
+                        itemClass="page-item"
+                        linkClass="page-link mx-1"
+                        activeClass="active"
+                        innerClass="pagination justify-content-center"
+                        hideDisabled={false}
+                    />
+                </nav>
+                }
+            </div>
+        </>
     )
 }
 

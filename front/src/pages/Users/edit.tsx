@@ -5,6 +5,7 @@ import {useForm} from "react-hook-form";
 import {toast} from 'react-toastify';
 import {Company} from "../../core/types/company";
 import {User} from "../../core/types/user";
+import Breadcrumb from "../../core/components/breadcrumb";
 
 
 type ParamsType = {
@@ -15,13 +16,14 @@ type FormState = {
     name: string;
     email: string;
     password: string;
+    password_repeat: string;
 }
 
 const EditarUser = () => {
     const { id } = useParams<ParamsType>();
     const history = useHistory();
     const [user, setUser] = useState<User>();
-    const { register, handleSubmit, formState: { errors }, setValue, reset} = useForm<FormState>();
+    const { register, handleSubmit, formState: { errors }, setValue, reset, getValues} = useForm<FormState>();
     const isEditing = id !== 'adicionar';
     const [isLoading, setIsLoading] = useState(false);
 
@@ -56,40 +58,53 @@ const EditarUser = () => {
     }
 
     return(
-        <div className="p-5 rounded bg-white">
-            <div className="row">
-                <h2>{isEditing ? `Editando ${user?.name}` : "Adicionando usuário"}</h2>
+        <>
+            <Breadcrumb controller="User" action={user?.name || id} />
+            <div className="p-5 rounded bg-white">
+                <div className="row">
+                    <h2>{isEditing ? `Editando ${user?.name}` : "Adicionando usuário"}</h2>
+                </div>
+                <hr className="mb-5"/>
+                {isLoading && ("Loading")}
+                <form onSubmit={handleSubmit(onSubmit)} className="needs-validation">
+                    <div className="row mb-3">
+                        <label className="col-lg-2 col-form-label">Nome</label>
+                        <div className="col-lg-10">
+                            <input type="text" className={`form-control ${errors.name ? 'is-invalid' : ''}`} placeholder="Nome" {...register("name", {required: true})} />
+                            {errors.name && <div className="invalid-feedback">This field is required or invalid</div>}
+                        </div>
+                    </div>
+                    <div className="row mb-3">
+                        <label className="col-lg-2 col-form-label">Email</label>
+                        <div className="col-lg-10">
+                            <input type="email" className={`form-control ${errors.email ? 'is-invalid' : ''}`} placeholder="Email"   {...register("email", {required: true, pattern: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/i})} />
+                            {errors.email && <div className="invalid-feedback">This field is required or invalid</div>}
+                        </div>
+                    </div>
+                    <div className="row mb-3">
+                        <label className="col-lg-2 col-form-label">Senha</label>
+                        <div className="col-lg-10">
+                            <input type="password" className={`form-control ${errors.password ? 'is-invalid' : ''}`} placeholder="******" {...register("password", {required: true, minLength: {
+                                    value: 6,
+                                    message: "Senha deve ter no minimo 6 caracteres"
+                                }})} />
+                            {errors.password && <div className="invalid-feedback">This field is required or invalid. {errors.password.message}</div>}
+                        </div>
+                    </div>
+                    <div className="row mb-3">
+                        <label className="col-lg-2 col-form-label">Confirme a senha</label>
+                        <div className="col-lg-10">
+                            <input type="password" className={`form-control ${errors.password_repeat ? 'is-invalid' : ''}`} placeholder="******" {...register("password_repeat", {required: true, validate: (value) => value === getValues("password")|| "As senhas não são iguais." })} />
+                            {errors.password_repeat && <div className="invalid-feedback">This field is required or invalid. {errors.password_repeat.message}</div>}
+                        </div>
+                    </div>
+                    <div className="col-lg-12 text-center mt-5">
+                        <button className="btn btn-primary border-radius-10 px-5 me-5">SALVAR</button>
+                        <button type="reset" className="btn btn-danger border-radius-10 px-5" onClick={handleCancel}>CANCELAR</button>
+                    </div>
+                </form>
             </div>
-            <hr className="mb-5"/>
-            {isLoading && ("Loading")}
-            <form onSubmit={handleSubmit(onSubmit)} className="needs-validation">
-                <div className="row mb-3">
-                    <label className="col-lg-2 col-form-label">Nome</label>
-                    <div className="col-lg-10">
-                        <input type="text" className={`form-control ${errors.name ? 'is-invalid' : ''}`} placeholder="Nome" {...register("name", {required: true})} />
-                        {errors.name && <div className="invalid-feedback">This field is required or invalid</div>}
-                    </div>
-                </div>
-                <div className="row mb-3">
-                    <label className="col-lg-2 col-form-label">Email</label>
-                    <div className="col-lg-10">
-                        <input type="email" className={`form-control ${errors.email ? 'is-invalid' : ''}`} placeholder="Email"   {...register("email", {required: true, pattern: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/i})} />
-                        {errors.email && <div className="invalid-feedback">This field is required or invalid</div>}
-                    </div>
-                </div>
-                <div className="row mb-3">
-                    <label className="col-lg-2 col-form-label">Senha</label>
-                    <div className="col-lg-10">
-                        <input type="password" className={`form-control ${errors.password ? 'is-invalid' : ''}`} placeholder="******" {...register("password", {required: true})} />
-                        {errors.password && <div className="invalid-feedback">This field is required or invalid</div>}
-                    </div>
-                </div>
-                <div className="col-lg-12 text-center mt-5">
-                    <button className="btn btn-primary border-radius-10 px-5 me-5">SALVAR</button>
-                    <button type="reset" className="btn btn-danger border-radius-10 px-5" onClick={handleCancel}>CANCELAR</button>
-                </div>
-            </form>
-        </div>
+        </>
     )
 }
 
