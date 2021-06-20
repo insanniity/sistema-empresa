@@ -7,3 +7,18 @@ spring:
     console:
       enabled: true
       path: /h2-console
+security:
+  oauth2:
+    client:
+      client-id: sistema-empresa
+      client-secret: sistema-empresa123
+      accessTokenUri: http://localhost:8080/api/oauth/token
+jwt:
+  secret: MY-JWT-SCRET
+  duration: 86400
+
+host:
+  full:
+    dns:
+      auth:
+        link: /api
