@@ -1,6 +1,6 @@
 import axios, {AxiosRequestConfig} from 'axios';
 import qs from 'qs';
-import {CLIENT_ID, CLIENT_SECRET, getSessionData, logout} from "../auth/auth";
+import {CLIENT_ID, CLIENT_SECRET, getSessionData} from "../auth/auth";
 
 type LoginData={
     username:string;
@@ -9,15 +9,15 @@ type LoginData={
 
 const BASE_URL = process.env.REACT_APP_BACKEND_URL ?? 'http://localhost:8080/api';
 
-axios.interceptors.response.use(function (response) {
-    return response;
-}, function (error) {
-    if(error.response.status=== 401){
-        logout();
-        window.location.href = "/login";
-    }
-    return Promise.reject(error);
-});
+// axios.interceptors.response.use(function (response) {
+//     return response;
+// }, function (error) {
+//     if(error.response.status === 401){
+//         logout();
+//         window.location.href = "/login";
+//     }
+//     return Promise.reject(error);
+// });
 
 export const makeRequest = ( params:AxiosRequestConfig )=> {
     return axios({
