@@ -5,6 +5,7 @@ import {makePrivateRequest} from "../../core/utils/request";
 import Pagination from "react-js-pagination";
 import {toast} from "react-toastify";
 import Breadcrumb from "../../core/components/breadcrumb";
+import MyLoader from "../../core/components/contentLoader";
 
 const Companies = () => {
     const [companiesResponse, setCompaniesResponse] = useState<CompanyResponse>();
@@ -50,41 +51,44 @@ const Companies = () => {
         <>
             <Breadcrumb controller="Empresa" action="List" />
             <div className="p-5 rounded bg-white">
-                <table className="table table-striped">
-                    {isLoading && ("Loading")}
-                    <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Nome</th>
-                        <th scope="col">CNPJ</th>
-                        <th scope="col">Telefone</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">Endereço</th>
-                        <th scope="col">Ações</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {companiesResponse?.content.map(company =>
-                        <TableRow company={company} key={company.id} onRemove={onRemove}/>
-                    )}
-                    </tbody>
-                </table>
-                {companiesResponse &&
-                    <nav aria-label="...">
-                        <Pagination
-                            activePage={activePage}
-                            itemsCountPerPage={10}
-                            totalItemsCount={companiesResponse.totalElements}
-                            pageRangeDisplayed={5}
-                            onChange={page => setActivePage(page)}
-                            itemClass="page-item"
-                            linkClass="page-link mx-1"
-                            activeClass="active"
-                            innerClass="pagination justify-content-center"
-                            hideDisabled={false}
-                        />
-                    </nav>
-                }
+                {isLoading ? <MyLoader/> : (
+                    <>
+                        <table className="table table-striped">
+                            <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Nome</th>
+                                <th scope="col">CNPJ</th>
+                                <th scope="col">Telefone</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Endereço</th>
+                                <th scope="col">Ações</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {companiesResponse?.content.map(company =>
+                                <TableRow company={company} key={company.id} onRemove={onRemove}/>
+                            )}
+                            </tbody>
+                        </table>
+                        {companiesResponse &&
+                            <nav aria-label="...">
+                                <Pagination
+                                    activePage={activePage}
+                                    itemsCountPerPage={10}
+                                    totalItemsCount={companiesResponse.totalElements}
+                                    pageRangeDisplayed={5}
+                                    onChange={page => setActivePage(page)}
+                                    itemClass="page-item"
+                                    linkClass="page-link mx-1"
+                                    activeClass="active"
+                                    innerClass="pagination justify-content-center"
+                                    hideDisabled={false}
+                                />
+                            </nav>
+                        }
+                    </>
+                )}
             </div>
         </>
     )
