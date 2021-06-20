@@ -5,9 +5,12 @@ const Header = () => {
     const history = useHistory();
 
     const handleLogout = (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
-        event.preventDefault();
-        logout();
-        history.push("/login")
+        const confirm = window.confirm('Deseja realmente sair?');
+        if(confirm){
+            event.preventDefault();
+            logout();
+            history.replace("/login")
+        }
     }
 
     return(

@@ -41,7 +41,6 @@ const Users = () => {
 
 
     const onRemove = (id:any) =>{
-        console.log(currentUser)
         if(id === currentUser){
             toast.error('Você não pode apagar o usuário logado no momento!');
         }else {
