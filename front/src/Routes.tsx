@@ -8,6 +8,7 @@ import Users from "./pages/Users";
 import Login from "./pages/auth/login";
 import {isAuthenticated} from "./core/auth/auth";
 import PrivateRoute from "./core/routes/PrivateRoute";
+import EditarUser from "./pages/Users/edit";
 
 const Routes = () =>{
     return(
@@ -21,22 +22,22 @@ const Routes = () =>{
                             <Header />
                             <main className="container">
                                 <Switch>
-                                    <PrivateRoute path="/users" exactPath={true}>
+                                    <PrivateRoute path="/users" exact={true}>
                                         <Users />
                                     </PrivateRoute>
-                                    <PrivateRoute path="/users/:id" >
-                                        <h1>Edit Users</h1>
+                                    <PrivateRoute path="/users/:id" exact={true}>
+                                        <EditarUser />
                                     </PrivateRoute>
-                                    <PrivateRoute path="/companies" exactPath={true}>
+                                    <PrivateRoute path="/companies"  exact={true}>
                                         <Companies />
                                     </PrivateRoute>
-                                    <PrivateRoute path="/companies/:companyId" >
+                                    <PrivateRoute path="/companies/:companyId" exact={true}>
                                         <EditarCompany />
                                     </PrivateRoute>
-                                    <PrivateRoute path="/collaborators" exactPath={true}>
+                                    <PrivateRoute path="/collaborators" exact={true}>
                                         <Collaborators />
                                     </PrivateRoute>
-                                    <PrivateRoute path="/collaborators/:collaboratorId" >
+                                    <PrivateRoute path="/collaborators/:collaboratorId" exact={true}>
                                         <EditarCollaborator />
                                     </PrivateRoute>
                                 </Switch>

@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 import {useHistory, useParams} from "react-router-dom";
-import {makePrivateRequest, makeRequest} from "../../core/utils/request";
+import {makePrivateRequest} from "../../core/utils/request";
 import {useForm} from "react-hook-form";
 import {toast} from 'react-toastify';
 import {formatCpf, formatTel} from "../../core/utils/formatValues";
@@ -65,7 +65,7 @@ const EditarCollaborator = () => {
         if(cpf.isValid(data.cpf)){
             data.cpf = formatCpf(data.cpf);
             data.telefone = formatTel(data.telefone);
-            makeRequest({url: isEditing ? `/collaborators/${collaboratorId}` : '/Collaborators', method: isEditing ? 'PUT' : 'POST', data})
+            makePrivateRequest({url: isEditing ? `/collaborators/${collaboratorId}` : '/Collaborators', method: isEditing ? 'PUT' : 'POST', data})
                 .then(() => {
                     toast.success('Colaborador salvo com sucesso!');
                     history.push('/Collaborators');

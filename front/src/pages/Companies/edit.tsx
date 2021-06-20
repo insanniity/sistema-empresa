@@ -1,11 +1,11 @@
 import {useEffect, useState} from "react";
 import {useHistory, useParams} from "react-router-dom";
-import {makeRequest} from "../../core/utils/request";
+import {makePrivateRequest} from "../../core/utils/request";
 import {useForm} from "react-hook-form";
 import {toast} from 'react-toastify';
 import {Company} from "../../core/types/company";
 import {formatCnpj, formatTel} from "../../core/utils/formatValues";
-import { cnpj } from 'cpf-cnpj-validator';
+import {cnpj} from 'cpf-cnpj-validator';
 
 
 type ParamsType = {
@@ -22,7 +22,7 @@ const EditarCompany = () => {
     useEffect(() => {
         if(isEditing) {
             setIsLoading(true);
-            makeRequest({url: `/companies/${companyId}`})
+            makePrivateRequest({url: `/companies/${companyId}`})
                 .then(response => {
                     setValue('nome', response.data.nome);
                     setValue('cnpj', formatCnpj(response.data.cnpj));
@@ -40,7 +40,7 @@ const EditarCompany = () => {
         if(cnpj.isValid(data.cnpj)){
             data.cnpj = formatCnpj(data.cnpj);
             data.telefone = formatTel(data.telefone);
-            makeRequest({url: isEditing ? `/companies/${companyId}` : '/companies', method: isEditing ? 'PUT' : 'POST', data})
+            makePrivateRequest({url: isEditing ? `/companies/${companyId}` : '/companies', method: isEditing ? 'PUT' : 'POST', data})
                 .then(() => {
                     toast.success('Empresa salvo com sucesso!');
                     history.push('/companies');

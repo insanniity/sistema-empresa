@@ -5,29 +5,24 @@ import {Redirect, Route} from 'react-router-dom';
 type Props ={
     children: React.ReactNode;
     path: string;
-    exactPath?: boolean;
+    exact: boolean;
     allowedRoutes?: Role[];
 }
 
-const PrivateRoute = ({ children, path, exactPath} : Props) => {
+const PrivateRoute = ({ children, path,exact} : Props) => {
     return (
-      <Route 
-        path={path}       
-        render={({ location }) => {
+      <Route
+        path={path}
+        exact={exact}
+        render={() => {
                 if(!isAuthenticated()){
                     return(
-                        <Redirect
-                            to={{
-                                pathname: "/login",
-                                state: { from: location }
-                            }}
-                        />
+                        <Redirect to="/login" />
                     )
                 }
                 return children;
-            }            
+            }
         }
-        exact={exactPath}
       />
     );
   }
