@@ -1,6 +1,5 @@
 # Projeto Sistema
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/20ed84c2-9a41-47a9-870b-1c1e490da39c/deploy-status)](https://app.netlify.com/sites/insannity-empresa/deploys) ![Heroku](https://heroku-badge.herokuapp.com/?app=insannity-company)
 
 ---
 
